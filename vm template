@@ -1,0 +1,30 @@
+formatVersion: 1
+inputs:
+  flavor:
+    type: string
+    enum:
+      - small
+      - medium
+    title: VM flavor
+    default: small
+    description: size of nodes
+  image:
+    type: string
+    enum:
+      - window os
+      - cent os
+    default: cent os
+    title: VM image
+    description: choose VM os
+resources:
+  Cloud_vSphere_Network_1:
+    type: Cloud.vSphere.Network
+    properties:
+      networkType: existing
+  Cloud_vSphere_Machine_1:
+    type: Cloud.vSphere.Machine
+    properties:
+      image: ${input.image}
+      flavor: ${input.flavor}
+      networks:
+        - network: ${resource.Cloud_vSphere_Network_1.id}
